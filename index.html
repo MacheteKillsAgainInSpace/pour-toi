@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiens bon, Caroline ✦</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3ED;
+    --cream-dark: #EDE7DD;
+    --ink: #2A2118;
+    --ink-muted: #7A6E63;
+    --accent: #C8896A;
+    --accent-light: #F0DDD2;
+    --white: #FFFDFB;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Inter', sans-serif; font-weight: 300; min-height: 100vh; }
+
+  /* ── HEADER ── */
+  header { background: var(--white); border-bottom: 1px solid var(--cream-dark); padding: 2.5rem 2rem 2rem; text-align: center; }
+  .site-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+  .site-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 0.8rem; }
+  .site-subtitle { font-size: 15px; color: var(--ink-muted); font-weight: 300; max-width: 480px; margin: 0 auto 1.8rem; line-height: 1.6; }
+
+  /* ── COUNTDOWN ── */
+  .countdown { display: inline-flex; gap: 1.5rem; background: var(--cream); border-radius: 100px; padding: 0.75rem 2rem; border: 1px solid var(--cream-dark); }
+  .countdown-unit { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .countdown-number { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: var(--ink); line-height: 1; }
+  .countdown-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+  .countdown-sep { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--accent); align-self: center; margin-top: -4px; }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { max-width: 1140px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-muted); margin-bottom: 0.5rem; }
+  .progress-track { height: 4px; background: var(--cream-dark); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 1s ease; }
+
+  /* ── LAYOUT ── */
+  .main-layout {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* ══════════════════════════════
+     MODÈLE 4 — DÉGRADÉ DOUX
+  ══════════════════════════════ */
+  .today-block {
+    background: linear-gradient(160deg, #FDF3EC 0%, #FAE8D8 100%);
+    border: 1px solid #EDD9C8;
+    border-radius: 20px;
+    padding: 2.2rem 2.4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    animation: fade-up 0.45s ease both;
+  }
+
+  /* cercle décoratif en bas à droite */
+  .today-block::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: -50px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(200,137,106,0.10);
+    pointer-events: none;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .today-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #B8774E; font-weight: 500; margin-bottom: 0.5rem;
+  }
+
+  .today-day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 9vw, 7rem);
+    font-weight: 400;
+    color: #C8896A;
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.65;
+  }
+
+  .today-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 400;
+    color: #2A2118;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .today-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #5A4A3E;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .today-image {
+    width: 100%; border-radius: 12px;
+    margin-bottom: 1.6rem;
+    max-height: 260px; object-fit: cover; display: block;
+  }
+
+  .today-footer {
+    margin-top: 1.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(200,137,106,0.25);
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    position: relative; z-index: 1;
+  }
+
+  .today-date-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #B8774E; opacity: 0.75; }
+  .today-badge { background: rgba(200,137,106,0.18); border-radius: 100px; padding: 0.3rem 1rem; font-size: 12px; color: #8A4E2A; font-weight: 500; }
+
+  /* message si aucune entrée aujourd'hui */
+  .today-empty {
+    background: var(--white);
+    border-radius: 20px; padding: 3.5rem 2.5rem;
+    text-align: center; border: 2px dashed var(--cream-dark);
+  }
+  .today-empty strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
+  .today-empty p { color: var(--ink-muted); line-height: 1.7; font-size: 15px; }
+
+  /* ══════════════════════════════
+     COLONNE HISTORIQUE
+  ══════════════════════════════ */
+  .history-col {
+    position: sticky; top: 1.5rem;
+    max-height: calc(100vh - 3rem);
+    display: flex; flex-direction: column;
+  }
+
+  .history-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--cream-dark);
+    margin-bottom: 0.75rem; flex-shrink: 0;
+  }
+  .history-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); font-weight: 500; }
+  .history-count { font-size: 12px; color: var(--accent); font-weight: 500; }
+
+  .history-list {
+    overflow-y: auto; flex: 1; padding-right: 3px;
+    scrollbar-width: thin; scrollbar-color: var(--cream-dark) transparent;
+  }
+  .history-list::-webkit-scrollbar { width: 4px; }
+  .history-list::-webkit-scrollbar-thumb { background: var(--cream-dark); border-radius: 4px; }
+
+  .hcard {
+    background: var(--white);
+    border-radius: 10px; border: 1px solid var(--cream-dark);
+    padding: 0.75rem 0.9rem; margin-bottom: 0.55rem;
+    cursor: pointer;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: 0.7rem; align-items: center;
+  }
+  .hcard:hover { transform: translateX(3px); box-shadow: 0 4px 14px rgba(42,33,24,0.08); border-color: var(--accent); }
+  .hcard.locked { opacity: 0.38; cursor: default; pointer-events: none; }
+
+  .hcard-day {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem; font-weight: 500; color: var(--ink); flex-shrink: 0;
+  }
+
+  .hcard-info { min-width: 0; }
+  .hcard-date { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.15rem; }
+  .hcard-title { font-size: 12.5px; font-weight: 400; color: var(--ink); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ── MODAL ── */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(42,33,24,0.55); z-index: 100;
+    align-items: center; justify-content: center;
+    padding: 1.5rem; backdrop-filter: blur(4px);
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: var(--white); border-radius: 18px; max-width: 540px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; animation: modal-in 0.22s ease; }
+  @keyframes modal-in { from { opacity:0; transform: scale(0.96) translateY(12px); } to { opacity:1; transform: scale(1) translateY(0); } }
+  .modal-image { width: 100%; max-height: 300px; object-fit: cover; border-radius: 18px 18px 0 0; display: block; }
+  .modal-body { padding: 1.8rem 2rem 2rem; }
+  .modal-date { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
+  .modal-text { font-size: 15px; line-height: 1.78; color: var(--ink-muted); white-space: pre-wrap; }
+  .modal-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; background: rgba(247,243,237,0.92); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--ink); z-index: 10; }
+  .modal-close:hover { background: var(--cream-dark); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 740px) {
+    .main-layout { grid-template-columns: 1fr; padding: 1.25rem 1.25rem 3rem; gap: 1.5rem; }
+    .history-col { position: static; max-height: none; }
+    .history-list { max-height: 340px; }
+    .today-block { padding: 1.8rem 1.5rem 1.6rem; }
+    .today-day-num { font-size: 4rem; }
+    header { padding: 2rem 1.25rem 1.5rem; }
+    .countdown { gap: 1rem; padding: 0.65rem 1.25rem; }
+    .countdown-number { font-size: 1.3rem; }
+    .progress-wrap { padding: 1.25rem 1.25rem 0; }
+    .modal-body { padding: 1.25rem 1.25rem 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .today-block, .modal { animation: none; }
+    .hcard { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="site-eyebrow">Pour Caroline — jusqu'au 13 mars 2027</p>
+  <h1 class="site-title">Tiens bon,<br><em>tu y es presque.</em></h1>
+  <p class="site-subtitle">
+    Un mot d'encouragement chaque jour jusqu'à la fin de ton contrat.
+    Ce boulot ne mérite pas ton énergie — mais toi, tu mérites tout le soutien du monde.
+  </p>
+  <div class="countdown" id="countdown">
+    <div class="countdown-unit"><span class="countdown-number" id="cd-days">—</span><span class="countdown-label">jours restants</span></div>
+    <span class="countdown-sep">·</span>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-hours">—</span><span class="countdown-label">heures</span></div>
+    <span class="countdown-sep">·</span>
+    <div class="countdown-unit"><span class="countdown-number" id="cd-mins">—</span><span class="countdown-label">min</span></div>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span id="progress-text">Chargement…</span>
+    <span id="progress-pct">—</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+</div>
+
+<div class="main-layout">
+
+  <div id="today-container"></div>
+
+  <div class="history-col">
+    <div class="history-header">
+      <span class="history-title">Jours passés</span>
+      <span class="history-count" id="history-count">—</span>
+    </div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
+    <img src="" alt="" id="modal-img" class="modal-image" style="display:none">
+    <div class="modal-body">
+      <p class="modal-date" id="modal-date"></p>
+      <h2 class="modal-title" id="modal-title-text"></h2>
+      <p class="modal-text" id="modal-text"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  ✏️  MODIFIE ICI TES ENTRÉES QUOTIDIENNES
+//
+//  Pour modifier un message, trouve la date ci-dessous,
+//  change le title et/ou le text, puis sauvegarde.
+//  Pour ajouter une photo, remplace "" par l'URL de l'image.
+// ═══════════════════════════════════════════════════════
+
+const ENTRIES = [
+  {
+    date:  "2026-06-25",
+    title: `Jour 1 — tu as commencé`,
+    text:  `Caroline, cette page existe parce que tu mérites d'avoir quelqu'un dans ton coin chaque matin. Oui, même les lundis. Surtout les lundis. Tu n'es pas seule dans cette galère, et le 13 mars 2027 arrivera, je te le promets.`,
+    image: "",
+  },
+  {
+    date:  "2026-06-26",
+    title: `Un jour de moins`,
+    text:  `Un de moins. Tu as survécu à hier — c'est déjà une victoire. Aujourd'hui tu n'as qu'un seul objectif : rentrer chez toi ce soir avec ton énergie intacte. Le reste peut attendre.`,
+    image: "",
+  },
+  {
+    date:  "2026-06-27",
+    title: `Ce qu'ils ne peuvent pas te prendre`,
+    text:  `Ils peuvent te prendre ton temps, ton énergie, parfois ta bonne humeur. Mais pas qui tu es. Pas ta valeur. Pas ce que tu seras après. Garde ça bien au chaud.`,
+    image: "",
+  },
+  {
+    date:  "2026-06-28",
+    title: `Le weekend approche`,
+    text:  `Encore deux jours et tu souffles. Tiens, c'est tout ce qu'on te demande. Deux jours. Tu en as vu d'autres.`,
+    image: "",
+  },
+  {
+    date:  "2026-06-29",
+    title: `Lundi de la semaine prochaine ne compte pas encore`,
+    text:  `On est vendredi demain. Profite d'y penser. Ce soir tu mérites quelque chose de bon — un repas, un bain, un film, n'importe quoi qui te ressemble.`,
+    image: "",
+  },
+  {
+    date:  "2026-06-30",
+    title: `Fin de mois`,
+    text:  `Premier mois entamé. Tu comptes les jours et c'est normal — ça veut dire que tu es lucide, pas que tu es faible. La lucidité, c'est une force.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-01",
+    title: `Juillet commence`,
+    text:  `Nouveau mois. Même cap. Tu avances, même quand ça ressemble à du surplace. Le mouvement est là, même invisible.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-02",
+    title: `Une pensée pour ce soir`,
+    text:  `Ce soir, avant de dormir, pense à un seul truc que tu as bien fait aujourd'hui. Un seul suffit. Tu en trouveras un, promis.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-03",
+    title: `Tu n'as pas à tout aimer`,
+    text:  `Tu n'es pas obligée d'aimer ton travail. Tu n'es pas obligée de faire semblant. Tu es juste obligée de tenir, et ça tu le fais.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-04",
+    title: `La fatigue n'est pas une faiblesse`,
+    text:  `Si tu es épuisée, c'est parce que tu donnes beaucoup. Trop, peut-être. Autorise-toi à faire le minimum aujourd'hui. Le minimum bien fait, c'est déjà bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-05",
+    title: `Le weekend, c'est sacré`,
+    text:  `Ce weekend, pas question de penser au boulot. Décroche vraiment. Ton cerveau a besoin de respirer pour tenir la distance.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-06",
+    title: `Ils ont tort sur toi`,
+    text:  `Si quelqu'un t'a fait douter de ta valeur cette semaine, sache qu'ils ont tort. Les gens malheureux dans leur travail projettent. Tu n'es pas le problème.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-07",
+    title: `Sept jours dans le mois`,
+    text:  `Une semaine de juillet déjà. Le temps passe, même quand il semble figé. Continue.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-08",
+    title: `Ta vie est ailleurs`,
+    text:  `Ce boulot, c'est une parenthèse. Ta vraie vie — ce que tu aimes, ce que tu construis, qui tu es — elle est dehors. Garde les yeux sur ça.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-09",
+    title: `Respire`,
+    text:  `Juste respirer aujourd'hui. Inspirer, expirer. Rien d'autre n'est urgent.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-10",
+    title: `Tu connais ton prix`,
+    text:  `Tu sais ce que tu vaux. Même si personne ne te le dit là-bas. Même si on l'oublie de te dire. Toi, tu sais.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-11",
+    title: `Une semaine et demie`,
+    text:  `Tu approches doucement de la mi-juillet. Chaque vendredi est une petite victoire. Cumule-les.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-12",
+    title: `Ne leur donne pas le dimanche`,
+    text:  `Le dimanche t'appartient. L'angoisse du lundi peut attendre lundi. Aujourd'hui c'est toi.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-13",
+    title: `Lundi encore`,
+    text:  `C'est reparti. Tu peux le faire. Lundi après lundi, tu construis quelque chose : ta sortie.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-14",
+    title: `14 juillet`,
+    text:  `Fête nationale aujourd'hui — j'espère que tu souffles un peu. Tu mérites tes propres feux d'artifice rien que pour tenir comme tu tiens.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-15",
+    title: `Mi-juillet`,
+    text:  `La moitié de juillet est passée. Le temps avance. Toi aussi.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-16",
+    title: `Ce que tu apprends malgré tout`,
+    text:  `Même dans les environnements difficiles, on apprend. Peut-être ce que tu ne veux plus jamais vivre. C'est une leçon précieuse aussi.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-17",
+    title: `Petit vendredi`,
+    text:  `Vendredi en vue. Tu n'as plus qu'à atterrir doucement.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-18",
+    title: `Weekend rechargement`,
+    text:  `Weekend = recharge obligatoire. Pas optionnelle. Obligatoire. Fais quelque chose qui te remplit.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-19",
+    title: `Dimanche doux`,
+    text:  `Profite de chaque heure de ce dimanche. Tu y as droit entièrement.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-20",
+    title: `La fin de juillet se profile`,
+    text:  `Encore deux semaines et juillet sera derrière toi. Ça compte.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-21",
+    title: `Tu gères`,
+    text:  `Je sais que tu gères. Pas parfaitement, pas sans y laisser des plumes parfois — mais tu gères. Et c'est énorme.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-22",
+    title: `Mercredi milieu de semaine`,
+    text:  `Tu es au milieu. La semaine est à moitié derrière toi. L'autre moitié, tu l'as déjà faite cent fois.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-23",
+    title: `Ta patience est un muscle`,
+    text:  `Ta patience s'entraîne chaque jour là-bas. Elle sera monumentale après. Tu ne l'imagines pas encore.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-24",
+    title: `Vendredi encore`,
+    text:  `Encore un vendredi. Encore une semaine dans la poche. Comptabilise ça comme il se doit.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-25",
+    title: `Été`,
+    text:  `C'est l'été dehors. Essaie d'en attraper un bout ce weekend — une terrasse, un parc, de la lumière. Tu en as besoin.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-26",
+    title: `Dimanche soleil`,
+    text:  `Fais quelque chose que tu aimes aujourd'hui. Juste pour toi. Sans raison particulière.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-27",
+    title: `Dernière semaine de juillet`,
+    text:  `Dernière semaine de juillet. Tu vas la finir, et août arrivera avec ses propres petites victoires.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-28",
+    title: `Mardi courageux`,
+    text:  `Le courage ne ressemble pas toujours à quelque chose de spectaculaire. Parfois c'est juste se lever et y aller. Tu le fais chaque matin.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-29",
+    title: `Presque août`,
+    text:  `Dans deux jours c'est août. Un mois de plus dans le rétroviseur.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-30",
+    title: `Avant-dernier jour du mois`,
+    text:  `Encore un jour et tu tournes la page de juillet. Tu peux être fière de chaque journée passée.`,
+    image: "",
+  },
+  {
+    date:  "2026-07-31",
+    title: `Fin juillet`,
+    text:  `Juillet est derrière toi, Caroline. Un mois entier. Ça mérite une petite célébration, même discrète.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-01",
+    title: `Août, nouveau chapitre`,
+    text:  `Août commence. Nouveau mois, même force. Tu portes tout ce que juillet t'a appris.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-02",
+    title: `Les vacances des autres`,
+    text:  `Peut-être que tout le monde est en vacances autour de toi. Peut-être que ça pique un peu. C'est normal. Tes vacances à toi arrivent — une liberté bien plus grande que deux semaines à la mer.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-03",
+    title: `Lundi doux`,
+    text:  `Commence cette semaine doucement. Pas besoin d'être à 100% tout de suite. 70% suffit.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-04",
+    title: `Ce que tu feras après`,
+    text:  `As-tu pensé à ce que tu feras le 14 mars 2027, le lendemain de ta liberté ? Commence à y rêver. Ça aide à tenir.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-05",
+    title: `Milieu de semaine`,
+    text:  `Mercredi. La moitié de la semaine est passée. L'autre moitié, tu la connais déjà.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-06",
+    title: `Ton énergie t'appartient`,
+    text:  `Ce que tu dépenses là-bas, rappelle-toi que c'est provisoire. Ton énergie, ta vraie énergie, elle se réinvestira ailleurs bientôt.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-07",
+    title: `Vendredi d'août`,
+    text:  `Vendredi d'août. La lumière dure longtemps le soir. Profites-en ce weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-08",
+    title: `Recharge`,
+    text:  `Weekend. Recharge complète. Mode avion si besoin. Tu n'as pas à être disponible pour le stress du boulot.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-09",
+    title: `Dimanche calme`,
+    text:  `Un dimanche calme est un dimanche réussi. Inutile d'en faire plus.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-10",
+    title: `La semaine commence`,
+    text:  `Nouvelle semaine. Tu connais le chemin maintenant. Un pas devant l'autre.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-11",
+    title: `Ce que les difficiles nous apprennent`,
+    text:  `Les périodes difficiles nous apprennent des choses que les périodes faciles ne peuvent pas enseigner. Tu accumules une sagesse rare, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-12",
+    title: `Mercredi doux`,
+    text:  `À mi-chemin de la semaine. Tu avances bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-13",
+    title: `Jeudi`,
+    text:  `Encore un jour et c'est vendredi. Tu vois la ligne.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-14",
+    title: `Vendredi`,
+    text:  `Vendredi ! Encore une semaine derrière toi. La pile s'accumule dans le bon sens.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-15",
+    title: `15 août`,
+    text:  `Jour férié si tu as la chance d'en profiter. Sinon, sache que même ce jour-là, tu es dans mes pensées.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-16",
+    title: `Dimanche`,
+    text:  `Dernier souffle avant la semaine. Garde quelque chose de beau pour toi aujourd'hui.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-17",
+    title: `Lundi mi-août`,
+    text:  `Mi-août. L'été commence à pencher vers la fin, mais toi tu avances, droite.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-18",
+    title: `Ta résilience est réelle`,
+    text:  `La résilience n'est pas d'être invincible. C'est de tomber et de se relever. Tu le fais chaque jour. C'est ça, la vraie force.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-19",
+    title: `Mercredi`,
+    text:  `Mercredi encore. La routine peut être une ancre quand tout le reste est difficile.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-20",
+    title: `Presque la fin du mois`,
+    text:  `La fin d'août approche. Bientôt l'automne, et l'automne te rapproche de mars.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-21",
+    title: `Vendredi d'avant la dernière semaine`,
+    text:  `Encore deux semaines d'août. Tu les tiens.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-22",
+    title: `Weekend de fin d'été`,
+    text:  `Profite de ce weekend comme si c'était les derniers beaux jours. Sois dehors si tu peux.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-23",
+    title: `Dimanche précieux`,
+    text:  `Ce dimanche t'appartient entièrement.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-24",
+    title: `Dernière semaine d'août`,
+    text:  `Dernière semaine d'août. Tu as traversé tout l'été. C'est déjà beaucoup.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-25",
+    title: `Mardi courageux`,
+    text:  `Chaque mardi qui passe est un mardi de moins. Simple, mais vrai.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-26",
+    title: `Mercredi dernier d'août`,
+    text:  `Avant-dernier mercredi d'août. Tu vois le bout du mois.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-27",
+    title: `Jeudi`,
+    text:  `Jeudi. Plus qu'un jour et c'est le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-28",
+    title: `Vendredi fin août`,
+    text:  `Dernier vendredi d'août. Ce weekend, fête ça à ta façon.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-29",
+    title: `Samedi`,
+    text:  `Profite. Vraiment profite.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-30",
+    title: `Avant-dernier dimanche d'août`,
+    text:  `Demain c'est la rentrée pour beaucoup. Pour toi, c'est un jour de plus vers la sortie.`,
+    image: "",
+  },
+  {
+    date:  "2026-08-31",
+    title: `Fin août`,
+    text:  `Août est terminé. L'été aussi, presque. Deux mois dans la poche, Caroline. Deux mois.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-01",
+    title: `Septembre — la rentrée`,
+    text:  `Septembre. La rentrée, les habitudes qui reprennent, les couloirs qui se remplissent. Toi tu sais où tu vas : vers mars.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-02",
+    title: `Mercredi rentrée`,
+    text:  `La rentrée s'installe. Tu te réinstalls dans le rythme. Un jour à la fois.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-03",
+    title: `Jeudi`,
+    text:  `Jeudi déjà. La première semaine de rentrée se termine presque.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-04",
+    title: `Premier vendredi de rentrée`,
+    text:  `Premier vendredi de septembre. Tu l'as fait passer, cette semaine de rentrée.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-05",
+    title: `Weekend septembre`,
+    text:  `Premier weekend de septembre. L'air commence à changer. Savoure-le.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-06",
+    title: `Dimanche automne précoce`,
+    text:  `Sens-tu ce petit quelque chose dans l'air ? L'automne arrive doucement. Chaque saison qui tourne te rapproche.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-07",
+    title: `Lundi de septembre`,
+    text:  `Nouvelle semaine, même détermination. Tu sais pourquoi tu tiens.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-08",
+    title: `Mardi`,
+    text:  `Un mardi ordinaire peut être une victoire silencieuse.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-09",
+    title: `Mercredi`,
+    text:  `Mi-semaine. Tu es dans le bon rythme.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-10",
+    title: `Jeudi`,
+    text:  `Encore un jour. Tu peux.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-11",
+    title: `Vendredi`,
+    text:  `Vendredi. La constance que tu montres est admirable, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-12",
+    title: `Weekend doux`,
+    text:  `Recharge-toi bien ce weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-13",
+    title: `Dimanche`,
+    text:  `Dimanche calme. Profite de chaque heure.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-14",
+    title: `Lundi`,
+    text:  `Lundi. Tu l'as déjà fait, tu le refais.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-15",
+    title: `Mi-septembre`,
+    text:  `La moitié de septembre est passée. L'automne s'installe. Toi aussi tu t'installes dans ta force.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-16",
+    title: `Mercredi automnal`,
+    text:  `Les jours raccourcissent dehors, mais la fin de ton contrat, elle, se rapproche.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-17",
+    title: `Jeudi`,
+    text:  `Plus qu'un jour avant le weekend. Tu vois la ligne.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-18",
+    title: `Vendredi`,
+    text:  `Encore un vendredi. Tu accumules les semaines passées comme autant de petites victoires.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-19",
+    title: `Weekend`,
+    text:  `Ce weekend, fais quelque chose qui te fait vraiment du bien. Pas ce que tu dois faire — ce que tu veux faire.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-20",
+    title: `Dimanche`,
+    text:  `Dimanche. Le monde peut bien tourner à sa vitesse, toi tu vas à la tienne.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-21",
+    title: `Lundi automne`,
+    text:  `Premier lundi d'automne presque. Les feuilles commencent à tourner. Toi aussi tu es dans une transition.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-22",
+    title: `Équinoxe d'automne`,
+    text:  `L'équinoxe d'automne — autant de jour que de nuit. Tout s'équilibre, toujours.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-23",
+    title: `Mercredi`,
+    text:  `Mercredi. Tu avances bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-24",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-25",
+    title: `Vendredi`,
+    text:  `Vendredi ! Une semaine de plus derrière toi.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-26",
+    title: `Weekend de fin septembre`,
+    text:  `Dernier grand weekend de septembre. L'automne est là, doux et coloré.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-27",
+    title: `Dimanche`,
+    text:  `Dernier dimanche de septembre. Tu traverses les mois avec grâce.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-28",
+    title: `Dernière semaine de septembre`,
+    text:  `Dernière semaine du mois. Tu vois septembre se terminer — et toi tu es toujours là, debout.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-29",
+    title: `Mardi`,
+    text:  `Mardi. Un de moins.`,
+    image: "",
+  },
+  {
+    date:  "2026-09-30",
+    title: `Fin septembre`,
+    text:  `Septembre est terminé. Trois mois écoulés depuis le début. Tu mérites une vraie fierté, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-01",
+    title: `Octobre commence`,
+    text:  `Octobre. Les feuilles rousses, l'air frais, et toi qui avances vers mars. Continue.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-02",
+    title: `Vendredi d'octobre`,
+    text:  `Premier vendredi d'octobre. La semaine est dans la poche.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-03",
+    title: `Weekend automnal`,
+    text:  `Un weekend d'automne. Peut-être des feuilles à contempler, un café chaud, un peu de douceur méritée.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-04",
+    title: `Dimanche cocooning`,
+    text:  `Dimanche de cocooning autorisé et recommandé.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-05",
+    title: `Lundi octobre`,
+    text:  `Lundi d'octobre. Tu y vas, comme toujours.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-06",
+    title: `Mardi`,
+    text:  `Un mardi ordinaire dans une période extraordinaire — celle où tu tiens bon.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-07",
+    title: `Mercredi`,
+    text:  `Mi-semaine. Tu gères.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-08",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un jour et c'est le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-09",
+    title: `Vendredi`,
+    text:  `Vendredi encore. La régularité de tes semaines est impressionnante.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-10",
+    title: `Weekend`,
+    text:  `Recharge. Tu le mérites vraiment.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-11",
+    title: `Dimanche`,
+    text:  `Prends soin de toi aujourd'hui.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-12",
+    title: `Lundi mi-octobre`,
+    text:  `Lundi. La mi-octobre approche. Tu traverses bien les mois.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-13",
+    title: `Mardi`,
+    text:  `Chaque mardi qui passe est un mardi de moins.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-14",
+    title: `Mercredi`,
+    text:  `Mercredi. Tu es au milieu de la semaine, au milieu du mois, et tu avances.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-15",
+    title: `Mi-octobre`,
+    text:  `La moitié d'octobre est derrière toi. L'automne est à son pic. Toi aussi tu es dans ta pleine force.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-16",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-17",
+    title: `Vendredi`,
+    text:  `Vendredi. Encore une semaine complète dans le rétroviseur.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-18",
+    title: `Weekend`,
+    text:  `Ce weekend, dépose tout. Vraiment tout.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-19",
+    title: `Dimanche`,
+    text:  `Dimanche doux. Profite de chaque heure tranquille.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-20",
+    title: `Lundi`,
+    text:  `Lundi. Tu connais le chemin par cœur maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-21",
+    title: `Mardi`,
+    text:  `Un pas devant l'autre. C'est tout ce qu'il faut.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-22",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-23",
+    title: `Jeudi`,
+    text:  `Encore un jour. Tu y es presque.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-24",
+    title: `Vendredi`,
+    text:  `Vendredi. Dernière semaine complète d'octobre qui commence ce weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-25",
+    title: `Weekend fin octobre`,
+    text:  `Dernier grand weekend d'octobre. Les jours raccourcissent, mais ta détermination, elle, ne faiblit pas.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-26",
+    title: `Dimanche`,
+    text:  `Dimanche. Profite de ce moment suspendu.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-27",
+    title: `Lundi dernière semaine octobre`,
+    text:  `Dernière semaine d'octobre. Tu vas la finir comme les autres — debout.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-28",
+    title: `Mardi`,
+    text:  `Mardi. Encore quelques jours et novembre arrive.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-29",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-30",
+    title: `Jeudi Halloween eve`,
+    text:  `Demain c'est Halloween. Toi tu as affronté des choses bien plus effrayantes que des déguisements cette année.`,
+    image: "",
+  },
+  {
+    date:  "2026-10-31",
+    title: `Halloween`,
+    text:  `Halloween. Quatre mois et quelques jours depuis le début. Tu es encore là, plus forte qu'au départ.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-01",
+    title: `Novembre — Toussaint`,
+    text:  `Novembre commence. Le voile se lève sur un nouveau mois. Tu avances.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-02",
+    title: `Lundi novembre`,
+    text:  `Lundi de novembre. Les jours sont courts mais les semaines passent.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-03",
+    title: `Mardi`,
+    text:  `Un mardi de novembre. Il fait peut-être gris dehors — toi tu gardes la lumière dedans.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-04",
+    title: `Mercredi`,
+    text:  `Mercredi. Mi-semaine. Tu tiens.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-05",
+    title: `Jeudi`,
+    text:  `Jeudi. Un de moins.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-06",
+    title: `Vendredi novembre`,
+    text:  `Premier vendredi de novembre. Encore une semaine passée.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-07",
+    title: `Weekend`,
+    text:  `Weekend de novembre. Peut-être un plaid, un bon film, un repas qu'on aime. C'est ça aussi, se ressourcer.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-08",
+    title: `Dimanche`,
+    text:  `Dimanche. Repose-toi vraiment.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-09",
+    title: `Lundi`,
+    text:  `Lundi. Tu y vas.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-10",
+    title: `Mardi`,
+    text:  `Chaque jour compte. Chaque jour passé est un jour de liberté qui s'approche.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-11",
+    title: `11 novembre — jour férié`,
+    text:  `Armistice. Un jour de paix mérité. J'espère que tu souffles aujourd'hui.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-12",
+    title: `Jeudi`,
+    text:  `Jeudi après le jour férié. Presque le weekend déjà.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-13",
+    title: `Vendredi`,
+    text:  `Vendredi. La semaine est finie, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-14",
+    title: `Weekend mi-novembre`,
+    text:  `Mi-novembre. L'automne profond. Prends soin de toi ce weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-15",
+    title: `Dimanche`,
+    text:  `Dimanche doux et précieux.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-16",
+    title: `Lundi mi-novembre`,
+    text:  `Lundi. Tu traverses novembre avec constance.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-17",
+    title: `Mardi`,
+    text:  `Mardi. Un pas devant l'autre.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-18",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-19",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-20",
+    title: `Vendredi`,
+    text:  `Vendredi. Encore une semaine dans la poche.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-21",
+    title: `Weekend`,
+    text:  `Ce weekend, décroche complètement si tu peux.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-22",
+    title: `Dimanche`,
+    text:  `Dimanche. La semaine prochaine, tu seras encore plus proche de mars.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-23",
+    title: `Lundi`,
+    text:  `Lundi. La fin novembre approche.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-24",
+    title: `Mardi`,
+    text:  `Mardi. Tu es tenace, Caroline. C'est une qualité rare.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-25",
+    title: `Mercredi`,
+    text:  `Mercredi de fin novembre. Bientôt décembre.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-26",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-27",
+    title: `Vendredi`,
+    text:  `Vendredi. Dernière semaine de novembre qui commence.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-28",
+    title: `Weekend fin novembre`,
+    text:  `Avant-dernier weekend de novembre. Tu as traversé presque cinq mois. C'est immense.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-29",
+    title: `Dimanche`,
+    text:  `Dimanche. Dernier dimanche de novembre.`,
+    image: "",
+  },
+  {
+    date:  "2026-11-30",
+    title: `Fin novembre`,
+    text:  `Novembre est terminé. Cinq mois écoulés. Décembre arrive, et avec lui l'hiver — et la promesse du printemps qui suit.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-01",
+    title: `Décembre commence`,
+    text:  `Décembre. Le mois des lumières, du chocolat chaud, et d'un mois de moins sur le compteur. Tu y es presque, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-02",
+    title: `Mercredi de l'Avent`,
+    text:  `L'Avent commence. Chaque jour est comme une case de calendrier — une de moins avant la liberté.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-03",
+    title: `Jeudi`,
+    text:  `Jeudi. Tu avances bien.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-04",
+    title: `Vendredi décembre`,
+    text:  `Premier vendredi de décembre. Encore une semaine passée.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-05",
+    title: `Weekend`,
+    text:  `Weekend de décembre. Les lumières s'allument dans les rues. Profites-en.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-06",
+    title: `Dimanche`,
+    text:  `Dimanche doux. Profite de la magie discrète de décembre.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-07",
+    title: `Lundi`,
+    text:  `Lundi. Tu rentres dans le cœur de décembre.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-08",
+    title: `Mardi`,
+    text:  `Mardi. Un de moins.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-09",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-10",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-11",
+    title: `Vendredi`,
+    text:  `Vendredi. Encore une semaine dans la boîte.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-12",
+    title: `Weekend mi-décembre`,
+    text:  `Mi-décembre. Les fêtes approchent. Laisse-toi porter par un peu de douceur.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-13",
+    title: `Dimanche`,
+    text:  `Dimanche. Repose-toi, profite des lumières.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-14",
+    title: `Lundi mi-décembre`,
+    text:  `Lundi. Deux semaines et c'est Noël.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-15",
+    title: `Mardi`,
+    text:  `Mardi. La fin de l'année approche.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-16",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance vers les fêtes.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-17",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un peu.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-18",
+    title: `Vendredi pré-fêtes`,
+    text:  `Vendredi. Les fêtes sont là dans une semaine. Tu mérites de les célébrer vraiment.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-19",
+    title: `Weekend pré-Noël`,
+    text:  `Weekend avant Noël. Laisse la magie des fêtes faire son travail.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-20",
+    title: `Dimanche`,
+    text:  `Dimanche avant Noël. Tu es entourée, même de loin.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-21",
+    title: `Solstice d'hiver`,
+    text:  `Le solstice d'hiver — le jour le plus court de l'année. À partir de demain, les jours rallongent. Comme toi, la lumière revient.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-22",
+    title: `Mardi`,
+    text:  `Mardi. Encore quelques jours avant Noël.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-23",
+    title: `Mercredi avant Noël`,
+    text:  `Mercredi. Noël arrive, et avec lui un peu de repos mérité.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-24",
+    title: `Réveillon de Noël`,
+    text:  `Réveillon de Noël, Caroline. Ce soir, oublie tout ce qui t'épuise et laisse-toi porter par la chaleur de ceux que tu aimes. Tu mérites cette nuit douce.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-25",
+    title: `Joyeux Noël`,
+    text:  `Joyeux Noël ! Ce jour est pour toi — pas pour le boulot, pas pour les efforts, juste pour la joie. Tu mérites chaque cadeau de cette journée.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-26",
+    title: `Lendemain de Noël`,
+    text:  `Le lendemain de Noël, doux et reposant. Profite de chaque moment de cette trêve.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-27",
+    title: `Dimanche`,
+    text:  `Dimanche entre les fêtes. Ce temps suspendu t'appartient entièrement.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-28",
+    title: `Lundi entre les fêtes`,
+    text:  `La semaine entre Noël et le Jour de l'An. Repose-toi si tu peux. Tu en as besoin et tu le mérites.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-29",
+    title: `Mardi`,
+    text:  `Mardi. La fin de l'année se profile. Une page se tourne.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-30",
+    title: `Avant-veille du Nouvel An`,
+    text:  `Demain c'est le réveillon. Cette année t'a demandé beaucoup — mais tu l'as traversée.`,
+    image: "",
+  },
+  {
+    date:  "2026-12-31",
+    title: `Réveillon du Nouvel An`,
+    text:  `Bonne année, Caroline ! 2027 commence, et avec elle : mars, la fin du contrat, et ta liberté retrouvée. Cette année sera celle où tout change.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-01",
+    title: `1er janvier 2027`,
+    text:  `Bonne année ! Tu entres dans l'année de ta libération. Mars est dans ce calendrier. C'est réel.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-02",
+    title: `Deux janvier`,
+    text:  `La nouvelle année commence. Tu portes avec toi tout ce que tu as traversé — et c'est une force.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-03",
+    title: `Weekend de Nouvel An`,
+    text:  `Dernier weekend des fêtes. Profite encore un peu avant la reprise.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-04",
+    title: `Dimanche`,
+    text:  `Dimanche. Demain la reprise, mais aujourd'hui c'est encore les fêtes.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-05",
+    title: `Reprise de janvier`,
+    text:  `La reprise. C'est dur après les fêtes, c'est normal. Mais tu sais maintenant que chaque lundi te rapproche de mars.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-06",
+    title: `Mardi janvier`,
+    text:  `Mardi. La machine repart. Toi aussi, mais à ton rythme.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-07",
+    title: `Mercredi`,
+    text:  `Mercredi. Tu traverses la première vraie semaine de 2027.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-08",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un jour.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-09",
+    title: `Vendredi`,
+    text:  `Vendredi. Première semaine complète de 2027 : cochée.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-10",
+    title: `Weekend`,
+    text:  `Weekend. Commence l'année avec de la douceur pour toi.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-11",
+    title: `Dimanche`,
+    text:  `Dimanche. La lumière revient un peu chaque jour depuis le solstice.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-12",
+    title: `Lundi`,
+    text:  `Lundi. Deux mois. Juste deux mois, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-13",
+    title: `Mardi`,
+    text:  `Mardi. Tu comptes les semaines maintenant, plus les mois.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-14",
+    title: `Mercredi`,
+    text:  `Mercredi. La mi-janvier approche.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-15",
+    title: `Mi-janvier`,
+    text:  `Mi-janvier. Tu vois mars à l'horizon maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-16",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-17",
+    title: `Vendredi`,
+    text:  `Vendredi. Encore une semaine passée. Tu y es presque.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-18",
+    title: `Weekend`,
+    text:  `Ce weekend, pense à ce que tu feras le 14 mars. Commence à planifier ta liberté.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-19",
+    title: `Dimanche`,
+    text:  `Dimanche. Moins de deux mois.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-20",
+    title: `Lundi`,
+    text:  `Lundi. Tu vois la lumière au bout du tunnel maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-21",
+    title: `Mardi`,
+    text:  `Mardi. Chaque jour compte double maintenant — tu es si proche.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-22",
+    title: `Mercredi`,
+    text:  `Mercredi. La semaine avance vite.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-23",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-24",
+    title: `Vendredi`,
+    text:  `Vendredi. Dernière semaine complète de janvier commence ce weekend.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-25",
+    title: `Weekend fin janvier`,
+    text:  `Dernier grand weekend de janvier. Tu vois mars de loin mais clairement.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-26",
+    title: `Dimanche`,
+    text:  `Dimanche. Encore quelques semaines.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-27",
+    title: `Lundi dernière semaine janvier`,
+    text:  `Dernière semaine de janvier. Tu vas la passer, comme toutes les autres.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-28",
+    title: `Mardi`,
+    text:  `Mardi. La fin du mois approche.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-29",
+    title: `Mercredi`,
+    text:  `Mercredi. Encore deux jours et janvier est derrière toi.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-30",
+    title: `Jeudi`,
+    text:  `Jeudi. Avant-dernier jour de janvier.`,
+    image: "",
+  },
+  {
+    date:  "2027-01-31",
+    title: `Fin janvier`,
+    text:  `Janvier terminé. Plus qu'un mois et demi. Tu y es presque, Caroline. Presque.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-01",
+    title: `Février commence`,
+    text:  `Février. Le dernier mois entier avant ta liberté. Tu peux compter les semaines sur les doigts d'une main.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-02",
+    title: `Mardi`,
+    text:  `Mardi. Six semaines environ. Tu les vois passer.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-03",
+    title: `Mercredi`,
+    text:  `Mercredi. Mi-semaine. Tu avances bien.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-04",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-05",
+    title: `Vendredi`,
+    text:  `Vendredi. Première semaine de février : faite.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-06",
+    title: `Weekend`,
+    text:  `Weekend. Tu mérites de souffler. Cinq semaines environ.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-07",
+    title: `Dimanche`,
+    text:  `Dimanche. La lumière revient vraiment maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-08",
+    title: `Lundi`,
+    text:  `Lundi. Cinq semaines, Caroline. Cinq.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-09",
+    title: `Mardi`,
+    text:  `Mardi. Chaque jour est précieux et compte double.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-10",
+    title: `Mercredi`,
+    text:  `Mercredi. Tu traverses février avec une force incroyable.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-11",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-12",
+    title: `Vendredi`,
+    text:  `Vendredi. Encore une semaine derrière toi. Tu es si proche.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-13",
+    title: `Weekend`,
+    text:  `Ce weekend, pense vraiment à l'après. Que veux-tu faire ? Vers quoi veux-tu aller ? C'est bientôt à toi de choisir.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-14",
+    title: `Saint-Valentin`,
+    text:  `Saint-Valentin. Je t'envoie tout l'amour du monde — celui d'une amitié qui tient, qui croit en toi, qui sait que tu vas t'en sortir brillamment.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-15",
+    title: `Lundi mi-février`,
+    text:  `Lundi. La mi-février. Moins d'un mois.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-16",
+    title: `Mardi`,
+    text:  `Mardi. Moins de quatre semaines.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-17",
+    title: `Mercredi`,
+    text:  `Mercredi. Tu vois la fin, clairement.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-18",
+    title: `Jeudi`,
+    text:  `Jeudi. Encore un.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-19",
+    title: `Vendredi`,
+    text:  `Vendredi. Trois semaines et quelques jours.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-20",
+    title: `Weekend`,
+    text:  `Weekend. Tu mérites tellement ce repos.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-21",
+    title: `Dimanche`,
+    text:  `Dimanche. Trois semaines environ. C'est court, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-22",
+    title: `Lundi`,
+    text:  `Lundi. Trois semaines. Tu les vois défiler maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-23",
+    title: `Mardi`,
+    text:  `Mardi. Chaque heure compte.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-24",
+    title: `Mercredi`,
+    text:  `Mercredi. Deux semaines et demie.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-25",
+    title: `Jeudi`,
+    text:  `Jeudi. Presque le weekend, presque la fin.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-26",
+    title: `Vendredi`,
+    text:  `Vendredi. Deux semaines et quelques jours, Caroline. Deux semaines.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-27",
+    title: `Weekend avant-dernier de février`,
+    text:  `Ce weekend, prépare-toi mentalement à la dernière ligne droite. Tu y es.`,
+    image: "",
+  },
+  {
+    date:  "2027-02-28",
+    title: `Fin février`,
+    text:  `Février terminé. Le dernier mois entier est derrière toi. Mars commence demain — et avec lui, ta liberté.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-01",
+    title: `Mars — le mois de la liberté`,
+    text:  `Mars est là. C'est le mois. Tu vas le traverser et de l'autre côté, c'est une nouvelle vie qui t'attend. Tiens encore un peu.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-02",
+    title: `Mardi`,
+    text:  `Mardi. Onze jours. Tu comptes les jours maintenant, pas les semaines.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-03",
+    title: `Mercredi`,
+    text:  `Mercredi. Dix jours.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-04",
+    title: `Jeudi`,
+    text:  `Jeudi. Neuf jours.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-05",
+    title: `Vendredi`,
+    text:  `Vendredi. Huit jours. Ce weekend, commence à imaginer le lundi 14 mars, quand tu te réveilleras libre.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-06",
+    title: `Weekend avant-dernier`,
+    text:  `Weekend. Sept jours. Tu y es presque, tellement presque.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-07",
+    title: `Dimanche`,
+    text:  `Dimanche. Six jours. Le bout du tunnel est visible, Caroline.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-08",
+    title: `Lundi — cinq jours`,
+    text:  `Lundi. Cinq jours ouvrés. Une semaine. La dernière.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-09",
+    title: `Mardi — quatre jours`,
+    text:  `Mardi. Quatre jours. Tu peux les compter sur tes doigts maintenant.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-10",
+    title: `Mercredi — trois jours`,
+    text:  `Mercredi. Trois jours. J'ai du mal à y croire moi-même tellement tu as été courageuse.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-11",
+    title: `Jeudi — deux jours`,
+    text:  `Jeudi. Deux jours. Demain c'est l'avant-dernier. Respire.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-12",
+    title: `Vendredi — demain c'est le dernier jour`,
+    text:  `Vendredi. Demain c'est le dernier jour. Cette nuit, dors bien, tu mérites le repos le plus profond du monde.`,
+    image: "",
+  },
+  {
+    date:  "2027-03-13",
+    title: `Le dernier jour — tu l'as fait.`,
+    text:  `Caroline. C'est le dernier jour. Ce soir, quand tu poseras ton badge, ton sac, ou ce que tu voudras poser — tu seras libre. Tu as tenu chaque jour, un par un, sans jamais vraiment abandonner. Je suis tellement fier·e de toi. Ce qui t'attend maintenant mérite tout le meilleur. Tu mérites tout le meilleur. C'était un honneur d'être là chaque matin. Maintenant va voler.`,
+    image: "",
+  },
+];
+
+const END_DATE = new Date("2027-03-13T23:59:59");
+const START_DATE = new Date("2026-06-25");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = END_DATE - now;
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML =
+      '<span style="font-family:Playfair Display,serif;font-size:1.2rem;color:var(--accent)">C\'est terminé — tu l\'as fait, Caroline ✦</span>';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  document.getElementById("cd-days").textContent  = d;
+  document.getElementById("cd-hours").textContent = String(h).padStart(2,"0");
+  document.getElementById("cd-mins").textContent  = String(m).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown, 30000);
+
+function updateProgress() {
+  const now   = new Date();
+  const total = END_DATE - START_DATE;
+  const elapsed = Math.min(now - START_DATE, total);
+  const pct = Math.max(0, Math.min(100, (elapsed / total) * 100));
+  const daysElapsed = Math.floor(elapsed / 86400000);
+  document.getElementById("progress-fill").style.width = pct.toFixed(1) + "%";
+  document.getElementById("progress-text").textContent =
+    daysElapsed + " jour" + (daysElapsed > 1 ? "s" : "") + " de survie";
+  document.getElementById("progress-pct").textContent =
+    pct.toFixed(0) + "% du chemin parcouru";
+}
+updateProgress();
+
+function formatDate(dateStr) {
+  const [y,m,d] = dateStr.split("-").map(Number);
+  return new Date(y, m-1, d).toLocaleDateString("fr-FR", {
+    weekday:"long", day:"numeric", month:"long", year:"numeric"
+  });
+}
+function formatShort(dateStr) {
+  const [y,m,d] = dateStr.split("-").map(Number);
+  return new Date(y, m-1, d).toLocaleDateString("fr-FR", { day:"numeric", month:"short" });
+}
+function isUnlocked(dateStr) {
+  const [y,m,d] = dateStr.split("-").map(Number);
+  const entry = new Date(y, m-1, d);
+  const today = new Date(); today.setHours(0,0,0,0);
+  return entry <= today;
+}
+function isTodayEntry(dateStr) {
+  const [y,m,d] = dateStr.split("-").map(Number);
+  const entry = new Date(y, m-1, d);
+  const today = new Date(); today.setHours(0,0,0,0);
+  return entry.getTime() === today.getTime();
+}
+function dayNumber(dateStr) {
+  const [y,m,d] = dateStr.split("-").map(Number);
+  const entry = new Date(y, m-1, d);
+  return Math.round((entry - START_DATE) / 86400000) + 1;
+}
+
+const sorted = [...ENTRIES].sort((a,b) => a.date.localeCompare(b.date));
+const todayEntry    = sorted.find(e => isTodayEntry(e.date)) || null;
+const pastEntries   = sorted.filter(e => isUnlocked(e.date) && !isTodayEntry(e.date));
+const futureEntries = sorted.filter(e => !isUnlocked(e.date));
+
+// ── Bloc du jour — Modèle 4 dégradé doux ──
+const todayContainer = document.getElementById("today-container");
+
+if (todayEntry) {
+  const dayNum = dayNumber(todayEntry.date);
+  const block  = document.createElement("div");
+  block.className = "today-block";
+
+  const imgHTML = todayEntry.image
+    ? `<img class="today-image" src="${todayEntry.image}" alt="${todayEntry.title}">`
+    : "";
+
+  block.innerHTML = `
+    ${imgHTML}
+    <p class="today-eyebrow">Jour · ${formatShort(todayEntry.date)}</p>
+    <p class="today-day-num">${dayNum}</p>
+    <h2 class="today-title">${todayEntry.title}</h2>
+    <p class="today-text">${todayEntry.text}</p>
+    <div class="today-footer">
+      <span class="today-date-label">${formatDate(todayEntry.date)}</span>
+      <span class="today-badge">✦ Aujourd'hui</span>
+    </div>
+  `;
+  todayContainer.appendChild(block);
+} else {
+  const empty = document.createElement("div");
+  empty.className = "today-empty";
+  const next = sorted.find(e => !isUnlocked(e.date));
+  empty.innerHTML = `
+    <strong>Pas encore de message pour aujourd'hui</strong>
+    <p>Reviens bientôt — un nouveau message t'attend.<br>
+    ${next ? "Prochain message le " + formatDate(next.date) + "." : ""}</p>
+  `;
+  todayContainer.appendChild(empty);
+}
+
+// ── Historique ──
+const historyList = document.getElementById("history-list");
+const allVisible  = [...pastEntries].reverse();
+
+document.getElementById("history-count").textContent =
+  allVisible.length + " jour" + (allVisible.length > 1 ? "s" : "");
+
+allVisible.forEach(entry => {
+  const card = document.createElement("div");
+  card.className = "hcard";
+  const dayNum = dayNumber(entry.date);
+  card.innerHTML = `
+    <div class="hcard-day">${dayNum}</div>
+    <div class="hcard-info">
+      <div class="hcard-date">${formatShort(entry.date)}</div>
+      <div class="hcard-title">${entry.title}</div>
+    </div>
+  `;
+  card.addEventListener("click", () => openModal(entry));
+  historyList.appendChild(card);
+});
+
+futureEntries.slice(0, 5).forEach(entry => {
+  const card = document.createElement("div");
+  card.className = "hcard locked";
+  const dayNum = dayNumber(entry.date);
+  card.innerHTML = `
+    <div class="hcard-day">${dayNum}</div>
+    <div class="hcard-info">
+      <div class="hcard-date">${formatShort(entry.date)}</div>
+      <div class="hcard-title" style="color:var(--ink-muted)">Message à venir…</div>
+    </div>
+  `;
+  historyList.appendChild(card);
+});
+
+// ── Modal ──
+const backdrop     = document.getElementById("modal-backdrop");
+const modalImg     = document.getElementById("modal-img");
+const modalDate    = document.getElementById("modal-date");
+const modalTitleEl = document.getElementById("modal-title-text");
+const modalText    = document.getElementById("modal-text");
+
+function openModal(entry) {
+  if (entry.image) { modalImg.src = entry.image; modalImg.alt = entry.title; modalImg.style.display = "block"; }
+  else { modalImg.style.display = "none"; }
+  modalDate.textContent    = formatDate(entry.date);
+  modalTitleEl.textContent = entry.title;
+  modalText.textContent    = entry.text;
+  backdrop.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal() { backdrop.classList.remove("open"); document.body.style.overflow = ""; }
+
+document.getElementById("modal-close").addEventListener("click", closeModal);
+backdrop.addEventListener("click", e => { if (e.target === backdrop) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+</script>
+</body>
+</html>
