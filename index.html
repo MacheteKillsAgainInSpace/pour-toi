@@ -51,110 +51,113 @@
   }
 
   /* ══════════════════════════════
-     FLIP CARD — RECTO
+     FLIP CARD
   ══════════════════════════════ */
-  .flip-scene {
-    perspective: 900px;
-    cursor: pointer;
-    min-height: 280px;
-  }
+  .flip-scene { perspective: 900px; cursor: pointer; }
 
   .flip-card {
-    width: 100%; min-height: 280px;
-    position: relative;
-    transform-style: preserve-3d;
+    width: 100%;
+    position: relative; transform-style: preserve-3d;
     transition: transform 0.75s cubic-bezier(.4,0,.2,1);
   }
-
   .flip-card.flipped { transform: rotateY(180deg); }
 
   .flip-face {
-    position: absolute; inset: 0;
     backface-visibility: hidden;
     border-radius: 20px;
+    width: 100%;
+  }
+  .flip-face.front { position: relative; }
+  .flip-face.back  {
+    position: absolute; inset: 0;
+    transform: rotateY(180deg);
+    overflow-y: auto;
   }
 
-  .flip-face.back { transform: rotateY(180deg); }
-
-  /* Recto — face fermée */
+  /* Recto */
   .today-front {
-    background: linear-gradient(160deg, #FDF3EC 0%, #FAE8D8 100%);
-    border: 1px solid #EDD9C8;
     border-radius: 20px;
-    height: 100%; min-height: 280px;
+    min-height: 220px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     gap: 8px; position: relative; overflow: hidden;
+    padding: 2.5rem 2rem;
   }
-
   .today-front::after {
-    content: '';
-    position: absolute; bottom: -50px; right: -50px;
+    content: ''; position: absolute; bottom: -50px; right: -50px;
     width: 180px; height: 180px; border-radius: 50%;
-    background: rgba(200,137,106,0.10); pointer-events: none;
+    background: rgba(255,255,255,0.18); pointer-events: none;
   }
-
   .front-day-num {
     font-family: 'Playfair Display', serif;
     font-size: clamp(5rem, 10vw, 8rem);
-    font-weight: 400; color: var(--accent);
-    opacity: 0.55; line-height: 1;
+    font-weight: 400; line-height: 1;
+    opacity: 0.6;
   }
+  .front-star { font-size: 1.4rem; opacity: 0.75; }
+  .front-hint { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px; opacity: 0.7; }
 
-  .front-star { font-size: 1.4rem; color: var(--accent); opacity: 0.7; }
-
-  .front-hint {
-    font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase; color: #B8774E;
-    margin-top: 4px;
-  }
-
-  /* Verso — face ouverte */
+  /* Verso */
   .today-back {
-    background: linear-gradient(160deg, #FDF3EC 0%, #FAE8D8 100%);
-    border: 1px solid #EDD9C8;
     border-radius: 20px;
-    height: 100%; min-height: 280px;
     padding: 2.2rem 2.4rem 2rem;
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
-
   .today-back::after {
-    content: '';
-    position: absolute; bottom: -50px; right: -50px;
+    content: ''; position: absolute; bottom: -50px; right: -50px;
     width: 180px; height: 180px; border-radius: 50%;
-    background: rgba(200,137,106,0.10); pointer-events: none;
+    background: rgba(255,255,255,0.18); pointer-events: none;
   }
 
-  .today-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #B8774E; font-weight: 500; margin-bottom: 0.5rem; }
-  .today-day-num { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 9vw, 7rem); font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 1rem; opacity: 0.65; }
-  .today-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 400; color: #2A2118; line-height: 1.25; margin-bottom: 1.2rem; position: relative; z-index: 1; }
-  .today-text { font-size: 15px; line-height: 1.85; color: #5A4A3E; font-weight: 300; position: relative; z-index: 1; }
-  .today-image { width: 100%; border-radius: 12px; margin-bottom: 1.6rem; max-height: 220px; object-fit: cover; display: block; }
+  /* Image limitée à 200px */
+  .today-image {
+    display: block;
+    max-width: 100%;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .today-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.4rem; opacity: 0.75; }
+
+  /* Taille adaptative selon longueur du texte */
+  .today-day-num { font-family: 'Playfair Display', serif; font-weight: 400; line-height: 1; margin-bottom: 0.8rem; opacity: 0.55; }
+  .today-back.short .today-day-num  { font-size: clamp(4rem, 9vw, 7rem); margin-bottom: 1rem; }
+  .today-back.medium .today-day-num { font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 0.8rem; }
+  .today-back.long .today-day-num   { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 0.6rem; }
+
+  .today-title { font-family: 'Playfair Display', serif; font-weight: 400; color: #2A2118; line-height: 1.25; margin-bottom: 1rem; position: relative; z-index: 1; }
+  .today-back.short .today-title  { font-size: clamp(1.6rem, 3.2vw, 2.3rem); margin-bottom: 1.2rem; }
+  .today-back.medium .today-title { font-size: clamp(1.4rem, 2.8vw, 2rem); margin-bottom: 1rem; }
+  .today-back.long .today-title   { font-size: clamp(1.2rem, 2.4vw, 1.6rem); margin-bottom: 0.8rem; }
+
+  .today-text { line-height: 1.85; color: #5A4A3E; font-weight: 300; position: relative; z-index: 1; }
+  .today-back.short .today-text  { font-size: 16px; line-height: 1.9; }
+  .today-back.medium .today-text { font-size: 15px; line-height: 1.85; }
+  .today-back.long .today-text   { font-size: 14px; line-height: 1.78; }
 
   .today-footer {
-    margin-top: 1.8rem; padding-top: 1.2rem;
-    border-top: 1px solid rgba(200,137,106,0.25);
+    margin-top: 1.6rem; padding-top: 1.1rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
     display: flex; align-items: center;
     justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
-    position: relative; z-index: 1;
+    position: relative; z-index: 1; flex-shrink: 0;
   }
-  .today-date-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #B8774E; opacity: 0.75; }
-  .today-badge { background: rgba(200,137,106,0.18); border-radius: 100px; padding: 0.3rem 1rem; font-size: 12px; color: #8A4E2A; font-weight: 500; }
+  .today-date-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; }
+  .today-badge { border-radius: 100px; padding: 0.3rem 1rem; font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.35); }
 
   /* ── Éclat étoiles ── */
-  .sparkle-ring {
-    position: absolute; inset: -4px; border-radius: 24px;
-    pointer-events: none; z-index: 20; opacity: 0;
-  }
+  .sparkle-ring { position: absolute; inset: -4px; border-radius: 24px; pointer-events: none; z-index: 20; opacity: 0; }
   .sparkle-ring.pop { animation: ring-pop 0.65s ease forwards; }
   @keyframes ring-pop {
     0%   { opacity: 1; box-shadow: 0 0 0 0 rgba(200,137,106,0.65), 0 0 0 0 rgba(200,137,106,0.25); }
     55%  { opacity: 1; box-shadow: 0 0 0 12px rgba(200,137,106,0.12), 0 0 0 24px rgba(200,137,106,0.04); }
     100% { opacity: 0; box-shadow: 0 0 0 20px rgba(200,137,106,0), 0 0 0 36px rgba(200,137,106,0); }
   }
-
   .stars-container { position: absolute; inset: 0; border-radius: 20px; pointer-events: none; z-index: 20; overflow: visible; }
   .star-particle { position: absolute; font-size: 14px; opacity: 0; color: var(--accent); animation: star-fly 0.85s ease forwards; }
   @keyframes star-fly {
@@ -162,7 +165,7 @@
     100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
   }
 
-  /* ── Pas d'entrée aujourd'hui ── */
+  /* ── Pas d'entrée ── */
   .today-empty { background: var(--white); border-radius: 20px; padding: 3.5rem 2.5rem; text-align: center; border: 2px dashed var(--cream-dark); }
   .today-empty strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
   .today-empty p { color: var(--ink-muted); line-height: 1.7; font-size: 15px; }
@@ -174,7 +177,6 @@
   .history-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid var(--cream-dark); margin-bottom: 0.75rem; flex-shrink: 0; }
   .history-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); font-weight: 500; }
   .history-count { font-size: 12px; color: var(--accent); font-weight: 500; }
-
   .history-list { overflow-y: auto; flex: 1; padding-right: 3px; scrollbar-width: thin; scrollbar-color: var(--cream-dark) transparent; }
   .history-list::-webkit-scrollbar { width: 4px; }
   .history-list::-webkit-scrollbar-thumb { background: var(--cream-dark); border-radius: 4px; }
@@ -192,7 +194,7 @@
   .modal-backdrop.open { display: flex; }
   .modal { background: var(--white); border-radius: 18px; max-width: 540px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; animation: modal-in 0.22s ease; }
   @keyframes modal-in { from { opacity:0; transform: scale(0.96) translateY(12px); } to { opacity:1; transform: scale(1) translateY(0); } }
-  .modal-image { width: 100%; max-height: 300px; object-fit: cover; border-radius: 18px 18px 0 0; display: block; }
+  .modal-image { width: 100%; max-height: 200px; object-fit: cover; border-radius: 18px 18px 0 0; display: block; }
   .modal-body { padding: 1.8rem 2rem 2rem; }
   .modal-date { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
   .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
@@ -205,20 +207,16 @@
     .main-layout { grid-template-columns: 1fr; padding: 1.25rem 1.25rem 3rem; gap: 1.5rem; }
     .history-col { position: static; max-height: none; }
     .history-list { max-height: 340px; }
-    .flip-scene, .flip-card { min-height: 240px; }
-    .today-front, .today-back { min-height: 240px; }
     .today-back { padding: 1.8rem 1.5rem 1.6rem; }
-    .today-day-num { font-size: 4rem; }
+    .today-front { min-height: 200px; padding: 2rem 1.5rem; }
     header { padding: 2rem 1.25rem 1.5rem; }
     .countdown { gap: 1rem; padding: 0.65rem 1.25rem; }
     .countdown-number { font-size: 1.3rem; }
     .progress-wrap { padding: 1.25rem 1.25rem 0; }
     .modal-body { padding: 1.25rem 1.25rem 1.5rem; }
   }
-
   @media (prefers-reduced-motion: reduce) {
-    .flip-card { transition: none; }
-    .modal { animation: none; }
+    .flip-card, .modal { animation: none; transition: none; }
     .star-particle { animation: none; }
   }
 </style>
@@ -252,9 +250,7 @@
 </div>
 
 <div class="main-layout">
-
   <div id="today-container"></div>
-
   <div class="history-col">
     <div class="history-header">
       <span class="history-title">Jours passés</span>
@@ -262,11 +258,10 @@
     </div>
     <div class="history-list" id="history-list"></div>
   </div>
-
 </div>
 
 <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
-  <div class="modal" id="modal">
+  <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
     <img src="" alt="" id="modal-img" class="modal-image" style="display:none">
     <div class="modal-body">
@@ -289,9 +284,9 @@
 const ENTRIES = [
   {
     date:  "2026-06-25",
-    title: `Le début de la fin (c'est un titre dramatique ça)`,
-    text:  `Bonjour Caroline. Cette page existe pour t'accompagner jusqu'à la fin de ton contrat. Ce n'est pas grand-chose, mais j'espère que ça t'aidera à tenir. Tu pourras y revenir tous les jours pour avoir un message sympathique. À demain pour un nouveau message.`,
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuhK63gCCcAQMitGTCt_MHsuRmOpz3FDy3iW4u5ODttA_0bla1b2yVOBQ&s=10",
+    title: `Jour 1 — tu as commencé`,
+    text:  `Caroline, cette page existe parce que tu mérites d'avoir quelqu'un dans ton coin chaque matin. Oui, même les lundis. Surtout les lundis. Tu n'es pas seule dans cette galère, et le 13 mars 2027 arrivera, je te le promets.`,
+    image: "https://raw.githubusercontent.com/MacheteKillsAgainInSpace/pour-toi/main/imagesJ1.jpg",
   },
   {
     date:  "2026-06-26",
@@ -1864,86 +1859,105 @@ const ENTRIES = [
 const END_DATE = new Date("2027-03-13T23:59:59");
 const START_DATE = new Date("2026-06-25");
 
+// ══════════════════════════════
+//  6 PALETTES CHAUDES — tirées au sort par numéro de jour
+//  (stable : même jour = même palette)
+// ══════════════════════════════
+const PALETTES = [
+  { bg: "linear-gradient(160deg,#FDF3EC,#FAE8D8)", border: "#EDD9C8", text: "#B8774E", accent: "#C8896A", badge: "rgba(200,137,106,0.18)", badgeText: "#8A4E2A" },
+  { bg: "linear-gradient(160deg,#FDF0F0,#FAE0DC)", border: "#F0D0C8", text: "#B86060", accent: "#C87868", badge: "rgba(200,120,104,0.18)", badgeText: "#8A3A2A" },
+  { bg: "linear-gradient(160deg,#FDFAF0,#FAF0D0)", border: "#EDE4B8", text: "#A08840", accent: "#C4A84A", badge: "rgba(196,168,74,0.18)", badgeText: "#7A6020" },
+  { bg: "linear-gradient(160deg,#F5F5EE,#EAE8DA)", border: "#D8D4C0", text: "#7A7860", accent: "#9A9870", badge: "rgba(154,152,112,0.18)", badgeText: "#4A4830" },
+  { bg: "linear-gradient(160deg,#FDF4F0,#F8E8E0)", border: "#EED8D0", text: "#B07060", accent: "#C89080", badge: "rgba(200,144,128,0.18)", badgeText: "#8A5040" },
+  { bg: "linear-gradient(160deg,#F8F0F8,#F0E4F0)", border: "#E0D0E4", text: "#9870A8", accent: "#B890C8", badge: "rgba(184,144,200,0.18)", badgeText: "#684878" },
+];
+
+function getPalette(dayNum) {
+  return PALETTES[dayNum % PALETTES.length];
+}
+
+function applyPalette(el, p) {
+  el.style.background = p.bg;
+  el.style.borderColor = p.border;
+}
+
+// ── Countdown ──
 function updateCountdown() {
-  const now = new Date();
-  const diff = END_DATE - now;
+  const now = new Date(), diff = END_DATE - now;
   if (diff <= 0) {
     document.getElementById("countdown").innerHTML =
       '<span style="font-family:Playfair Display,serif;font-size:1.2rem;color:var(--accent)">C\'est terminé — tu l\'as fait, Caroline ✦</span>';
     return;
   }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
+  const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000);
   document.getElementById("cd-days").textContent  = d;
   document.getElementById("cd-hours").textContent = String(h).padStart(2,"0");
   document.getElementById("cd-mins").textContent  = String(m).padStart(2,"0");
 }
-updateCountdown();
-setInterval(updateCountdown, 30000);
+updateCountdown(); setInterval(updateCountdown, 30000);
 
+// ── Progress ──
 function updateProgress() {
-  const now = new Date();
-  const total = END_DATE - START_DATE;
+  const now = new Date(), total = END_DATE - START_DATE;
   const elapsed = Math.min(now - START_DATE, total);
-  const pct = Math.max(0, Math.min(100, (elapsed / total) * 100));
-  const daysElapsed = Math.floor(elapsed / 86400000);
-  document.getElementById("progress-fill").style.width = pct.toFixed(1) + "%";
-  document.getElementById("progress-text").textContent =
-    daysElapsed + " jour" + (daysElapsed > 1 ? "s" : "") + " de survie";
-  document.getElementById("progress-pct").textContent =
-    pct.toFixed(0) + "% du chemin parcouru";
+  const pct = Math.max(0, Math.min(100, (elapsed/total)*100));
+  const daysElapsed = Math.floor(elapsed/86400000);
+  document.getElementById("progress-fill").style.width = pct.toFixed(1)+"%";
+  document.getElementById("progress-text").textContent = daysElapsed+" jour"+(daysElapsed>1?"s":"")+" de survie";
+  document.getElementById("progress-pct").textContent  = pct.toFixed(0)+"% du chemin parcouru";
 }
 updateProgress();
 
+// ── Helpers ──
 function formatDate(dateStr) {
   const [y,m,d] = dateStr.split("-").map(Number);
-  return new Date(y, m-1, d).toLocaleDateString("fr-FR", {
-    weekday:"long", day:"numeric", month:"long", year:"numeric"
-  });
+  return new Date(y,m-1,d).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 }
 function formatShort(dateStr) {
   const [y,m,d] = dateStr.split("-").map(Number);
-  return new Date(y, m-1, d).toLocaleDateString("fr-FR", { day:"numeric", month:"short" });
+  return new Date(y,m-1,d).toLocaleDateString("fr-FR",{day:"numeric",month:"short"});
 }
 function isUnlocked(dateStr) {
   const [y,m,d] = dateStr.split("-").map(Number);
-  const entry = new Date(y, m-1, d);
-  const today = new Date(); today.setHours(0,0,0,0);
+  const entry = new Date(y,m-1,d), today = new Date(); today.setHours(0,0,0,0);
   return entry <= today;
 }
 function isTodayEntry(dateStr) {
   const [y,m,d] = dateStr.split("-").map(Number);
-  const entry = new Date(y, m-1, d);
-  const today = new Date(); today.setHours(0,0,0,0);
+  const entry = new Date(y,m-1,d), today = new Date(); today.setHours(0,0,0,0);
   return entry.getTime() === today.getTime();
 }
 function dayNumber(dateStr) {
   const [y,m,d] = dateStr.split("-").map(Number);
-  const entry = new Date(y, m-1, d);
-  return Math.round((entry - START_DATE) / 86400000) + 1;
+  return Math.round((new Date(y,m-1,d) - START_DATE)/86400000)+1;
 }
 
-const sorted       = [...ENTRIES].sort((a,b) => a.date.localeCompare(b.date));
-const todayEntry   = sorted.find(e => isTodayEntry(e.date)) || null;
-const pastEntries  = sorted.filter(e => isUnlocked(e.date) && !isTodayEntry(e.date));
+// ── Classe adaptative selon longueur du texte ──
+function sizeClass(text) {
+  const len = text.length;
+  if (len < 120) return "short";
+  if (len < 260) return "medium";
+  return "long";
+}
+
+const sorted        = [...ENTRIES].sort((a,b) => a.date.localeCompare(b.date));
+const todayEntry    = sorted.find(e => isTodayEntry(e.date)) || null;
+const pastEntries   = sorted.filter(e => isUnlocked(e.date) && !isTodayEntry(e.date));
 const futureEntries = sorted.filter(e => !isUnlocked(e.date));
 
 const STAR_POSITIONS = [
-  { tx:"-70px", ty:"-55px" }, { tx:"70px",  ty:"-60px" },
-  { tx:"-80px", ty:"5px"   }, { tx:"80px",  ty:"10px"  },
-  { tx:"-55px", ty:"65px"  }, { tx:"55px",  ty:"70px"  },
-  { tx:"0px",   ty:"-80px" }, { tx:"0px",   ty:"80px"  },
+  {tx:"-70px",ty:"-55px"},{tx:"70px",ty:"-60px"},
+  {tx:"-80px",ty:"5px"  },{tx:"80px",ty:"10px" },
+  {tx:"-55px",ty:"65px" },{tx:"55px",ty:"70px" },
+  {tx:"0px",  ty:"-80px"},{tx:"0px", ty:"80px" },
 ];
 
 function fireSparkle(container) {
   const ring = container.querySelector(".sparkle-ring");
   const stars = container.querySelector(".stars-container");
-  ring.classList.remove("pop");
-  void ring.offsetWidth;
-  ring.classList.add("pop");
+  ring.classList.remove("pop"); void ring.offsetWidth; ring.classList.add("pop");
   stars.innerHTML = "";
-  STAR_POSITIONS.forEach((pos, i) => {
+  STAR_POSITIONS.forEach((pos,i) => {
     const s = document.createElement("span");
     s.className = "star-particle";
     s.textContent = "✦";
@@ -1956,46 +1970,49 @@ function fireSparkle(container) {
 const todayContainer = document.getElementById("today-container");
 
 if (todayEntry) {
-  const dayNum = dayNumber(todayEntry.date);
+  const dayNum  = dayNumber(todayEntry.date);
+  const palette = getPalette(dayNum);
+  const sz      = sizeClass(todayEntry.text);
   const imgHTML = todayEntry.image
     ? `<img class="today-image" src="${todayEntry.image}" alt="${todayEntry.title}">`
     : "";
 
   const scene = document.createElement("div");
   scene.className = "flip-scene";
-  scene.setAttribute("aria-label", "Cliquer pour révéler le message du jour");
 
   scene.innerHTML = `
     <div class="flip-card" id="today-flip">
-
       <div class="flip-face front">
-        <div class="today-front">
-          <span class="front-day-num">${dayNum}</span>
-          <span class="front-star">✦</span>
-          <span class="front-hint">Cliquer pour ouvrir</span>
+        <div class="today-front" style="border:1px solid ${palette.border};">
+          <span class="front-day-num" style="color:${palette.accent};">${dayNum}</span>
+          <span class="front-star" style="color:${palette.accent};">✦</span>
+          <span class="front-hint" style="color:${palette.text};">Cliquer pour ouvrir</span>
         </div>
       </div>
-
       <div class="flip-face back">
-        <div class="today-back">
+        <div class="today-back ${sz}" style="border:1px solid ${palette.border};">
           ${imgHTML}
-          <p class="today-eyebrow">Jour ${dayNum} · ${formatShort(todayEntry.date)}</p>
-          <p class="today-day-num">${dayNum}</p>
+          <p class="today-eyebrow" style="color:${palette.text};">Jour ${dayNum} · ${formatShort(todayEntry.date)}</p>
+          <p class="today-day-num" style="color:${palette.accent};">${dayNum}</p>
           <h2 class="today-title">${todayEntry.title}</h2>
           <p class="today-text">${todayEntry.text}</p>
           <div class="today-footer">
-            <span class="today-date-label">${formatDate(todayEntry.date)}</span>
-            <span class="today-badge">✦ Aujourd'hui</span>
+            <span class="today-date-label" style="color:${palette.text};">${formatDate(todayEntry.date)}</span>
+            <span class="today-badge" style="background:${palette.badge};color:${palette.badgeText};">✦ Aujourd'hui</span>
           </div>
         </div>
       </div>
-
       <div class="sparkle-ring"></div>
       <div class="stars-container"></div>
     </div>
   `;
 
+  // Appliquer le dégradé sur recto et verso
   todayContainer.appendChild(scene);
+  const front = scene.querySelector(".today-front");
+  const back  = scene.querySelector(".today-back");
+  front.style.background = palette.bg;
+  back.style.background  = palette.bg;
 
   let flipped = false;
   const flipCard = document.getElementById("today-flip");
@@ -2014,7 +2031,7 @@ if (todayEntry) {
   empty.innerHTML = `
     <strong>Pas encore de message pour aujourd'hui</strong>
     <p>Reviens bientôt — un nouveau message t'attend.<br>
-    ${next ? "Prochain message le " + formatDate(next.date) + "." : ""}</p>
+    ${next ? "Prochain message le "+formatDate(next.date)+"." : ""}</p>
   `;
   todayContainer.appendChild(empty);
 }
@@ -2022,9 +2039,7 @@ if (todayEntry) {
 // ── Historique ──
 const historyList = document.getElementById("history-list");
 const allVisible  = [...pastEntries].reverse();
-
-document.getElementById("history-count").textContent =
-  allVisible.length + " jour" + (allVisible.length > 1 ? "s" : "");
+document.getElementById("history-count").textContent = allVisible.length+" jour"+(allVisible.length>1?"s":"");
 
 allVisible.forEach(entry => {
   const card = document.createElement("div");
@@ -2041,7 +2056,7 @@ allVisible.forEach(entry => {
   historyList.appendChild(card);
 });
 
-futureEntries.slice(0, 5).forEach(entry => {
+futureEntries.slice(0,5).forEach(entry => {
   const card = document.createElement("div");
   card.className = "hcard locked";
   const dayNum = dayNumber(entry.date);
@@ -2063,19 +2078,19 @@ const modalTitleEl = document.getElementById("modal-title-text");
 const modalText    = document.getElementById("modal-text");
 
 function openModal(entry) {
-  if (entry.image) { modalImg.src = entry.image; modalImg.alt = entry.title; modalImg.style.display = "block"; }
-  else { modalImg.style.display = "none"; }
+  if (entry.image) { modalImg.src=entry.image; modalImg.alt=entry.title; modalImg.style.display="block"; }
+  else { modalImg.style.display="none"; }
   modalDate.textContent    = formatDate(entry.date);
   modalTitleEl.textContent = entry.title;
   modalText.textContent    = entry.text;
   backdrop.classList.add("open");
   document.body.style.overflow = "hidden";
 }
-function closeModal() { backdrop.classList.remove("open"); document.body.style.overflow = ""; }
+function closeModal() { backdrop.classList.remove("open"); document.body.style.overflow=""; }
 
 document.getElementById("modal-close").addEventListener("click", closeModal);
-backdrop.addEventListener("click", e => { if (e.target === backdrop) closeModal(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+backdrop.addEventListener("click", e => { if(e.target===backdrop) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeModal(); });
 </script>
 </body>
 </html>
